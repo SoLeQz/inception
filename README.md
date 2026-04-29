@@ -31,10 +31,10 @@ Named volumes are managed by Docker, portable, and safer for persistent data.
 - Add `127.0.0.1 nicleena.42.fr` to your `/etc/hosts`
 
 ### Setup
-\`\`\`bash
-cp .env.example .env   # fill in your values
+```bash
+cp srcs/.env.example srcs/.env   # fill in your credentials
 make
-\`\`\`
+```
 
 Then visit: https://nicleena.42.fr
 
