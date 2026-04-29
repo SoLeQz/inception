@@ -28,7 +28,7 @@ Named volumes are managed by Docker, portable, and safer for persistent data.
 
 ### Requirements
 - Docker & docker-compose installed
-- Add `127.0.0.1 nini.42.fr` to your `/etc/hosts`
+- Add `127.0.0.1 nicleena.42.fr` to your `/etc/hosts`
 
 ### Setup
 \`\`\`bash
@@ -36,7 +36,7 @@ cp .env.example .env   # fill in your values
 make
 \`\`\`
 
-Then visit: https://nini.42.fr
+Then visit: https://nicleena.42.fr
 
 ### Commands
 | Command | Effect |
