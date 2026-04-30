@@ -5,9 +5,7 @@ WP_PATH="/var/www/html"
 
 # Attendre que MariaDB soit prête
 echo "Waiting for MariaDB..."
-while ! mysqladmin ping -h mariadb -u"${DB_USER}" -p"${DB_PASSWORD}" --silent 2>/dev/null; do
-    sleep 1
-done
+mysqladmin ping -h mariadb -u"${DB_USER}" -p"${DB_PASSWORD}" --silent --wait=30
 echo "MariaDB is up!"
 
 # Installer WordPress si pas encore fait
