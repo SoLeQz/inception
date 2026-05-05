@@ -3,12 +3,14 @@ set -e
 
 WP_PATH="/var/www/html"
 
-# Attendre que MariaDB soit prête
+mkdir -p /run/php
+
 echo "Waiting for MariaDB..."
-mysqladmin ping -h mariadb -u"${DB_USER}" -p"${DB_PASSWORD}" --silent --wait=30
+while ! mysql -h mariadb -u"${DB_USER}" -p"${DB_PASSWORD}" -e "SELECT 1;" > /dev/null 2>&1; do
+    sleep 1
+done
 echo "MariaDB is up!"
 
-# Installer WordPress si pas encore fait
 if [ ! -f "${WP_PATH}/wp-config.php" ]; then
     echo "Downloading WordPress..."
     wp core download --allow-root --path="${WP_PATH}"
@@ -44,9 +46,7 @@ if [ ! -f "${WP_PATH}/wp-config.php" ]; then
     echo "WordPress installed!"
 fi
 
-# Configurer php-fpm pour écouter sur 0.0.0.0:9000
 sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = 0.0.0.0:9000|' \
     /etc/php/7.4/fpm/pool.d/www.conf
 
-# Lancer php-fpm en foreground
 exec php-fpm7.4 -F

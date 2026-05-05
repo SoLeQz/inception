@@ -8,11 +8,11 @@ RUN apt-get update && apt-get install -y \
     php7.4-mbstring \
     php7.4-xml \
     php7.4-zip \
+    default-mysql-client \
     wget \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Installer WP-CLI
 RUN wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     -O /usr/local/bin/wp && chmod +x /usr/local/bin/wp
 
