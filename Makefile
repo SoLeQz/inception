@@ -21,6 +21,9 @@ clean: down
 
 fclean: clean
 	sudo rm -rf /home/$(shell whoami)/data
+	sudo mkdir -p /home/$(shell whoami)/data/db
+	sudo mkdir -p /home/$(shell whoami)/data/wordpress
+	sudo chown -R $(shell whoami):$(shell whoami) /home/$(shell whoami)/data
 
 re: fclean all
 
