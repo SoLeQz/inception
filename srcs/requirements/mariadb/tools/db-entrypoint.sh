@@ -15,6 +15,14 @@ GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
+else
+    mysqld --user=mysql --bootstrap << EOF
+FLUSH PRIVILEGES;
+CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
+GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
+FLUSH PRIVILEGES;
+EOF
 fi
 
 exec mysqld --user=mysql --bind-address=0.0.0.0

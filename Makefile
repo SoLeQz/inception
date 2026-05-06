@@ -4,8 +4,12 @@ DATA_DIRS   = /home/$(shell whoami)/data/db /home/$(shell whoami)/data/wordpress
 
 all: up
 
-up: $(DATA_DIRS)
+up: hosts $(DATA_DIRS)
 	$(COMPOSE) up -d --build
+
+hosts:
+	@grep -q "$(shell cat srcs/.env | grep DOMAIN_NAME | cut -d= -f2)" /etc/hosts || \
+		echo "127.0.0.1 $(shell cat srcs/.env | grep DOMAIN_NAME | cut -d= -f2)" >> /etc/hosts
 
 down:
 	$(COMPOSE) down
@@ -30,4 +34,4 @@ re: fclean all
 $(DATA_DIRS):
 	mkdir -p $@
 
-.PHONY: all up down stop start clean fclean re
+.PHONY: all up down stop start clean fclean re hosts
